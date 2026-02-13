@@ -1,5 +1,7 @@
 # Dailies Finder for Nuke
 
+<img width="1643" height="523" alt="dailies_nuke" src="https://github.com/user-attachments/assets/cfa52440-a4bb-45c3-86d5-4510126473a2" />
+
 A Nuke script that finds and lays out version comparisons for selected shots. Select your Read nodes, run the script, and it creates an organized grid of **version zero**, **latest version**, and **selected version** Read nodes — each under a color-coded Backdrop.
 
 This script is **read-only** on the filesystem. It never writes, moves, or deletes any files.
