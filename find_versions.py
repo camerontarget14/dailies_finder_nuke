@@ -29,7 +29,7 @@ def _load_config():
 
 
 def _extract_shot_name(filename, shot_regex):
-    """Extract full shot name (e.g. BAD_1140a) from filename stem."""
+    """Extract full shot name (e.g. SEQ_1140a) from filename stem."""
     stem = os.path.splitext(filename)[0]
     m = re.match(shot_regex, stem)
     return m.group(1) if m else None
@@ -37,7 +37,7 @@ def _extract_shot_name(filename, shot_regex):
 
 def _extract_version_label(filename):
     """Extract a short version label from filename, e.g. w0045 from
-    MHG_0240_comp_w0045_vfx.mov -> w0045"""
+    SEQ_0240_comp_w0045_vfx.mov -> w0045"""
     stem = os.path.splitext(filename)[0]
     m = re.search(r"_([a-z]\d+)_vfx$", stem)
     if m:
@@ -48,17 +48,17 @@ def _extract_version_label(filename):
 
 
 def _shot_base(shot_name):
-    """Strip optional trailing letter: BAD_1140a -> BAD_1140."""
+    """Strip optional trailing letter: SEQ_1140a -> SEQ_1140."""
     return re.sub(r"[a-z]$", "", shot_name)
 
 
 def _build_vfx_path(shot_name, shot_tree_root, version_subfolder):
     """Build the _vfx folder path from a shot name.
-    e.g. BAD_1140a -> /Volumes/CAN-VFX/SHOT_TREE/vfx/BAD/BAD_1140/_vfx/
+    e.g. SEQ_1140a -> {shot_tree_root}/SEQ/SEQ_1140/_vfx/
     """
     base = _shot_base(shot_name)
-    seq = base.split("_")[0]       # BAD
-    shot_dir = base                 # BAD_1140
+    seq = base.split("_")[0]       # SEQ
+    shot_dir = base                 # SEQ_1140
     return Path(shot_tree_root) / seq / shot_dir / version_subfolder
 
 
@@ -70,7 +70,7 @@ def _find_version_zero(shot_name, vfx_dir, file_ext):
     if not vfx_dir.exists():
         return None
     base = _shot_base(shot_name)
-    # Match any vendor prefix letter + 0000, e.g. BAD_1140_color_u0000_vfx.mov
+    # Match any vendor prefix letter + 0000, e.g. SEQ_1140_comp_u0000_vfx.mov
     patterns = [
         "{}_*_?0000_vfx{}".format(base, file_ext),
         "{}_?0000_vfx{}".format(base, file_ext),
