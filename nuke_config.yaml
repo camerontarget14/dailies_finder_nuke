@@ -1,0 +1,50 @@
+# ─────────────────────────────────────────────────────────
+# Dailies Finder — Configuration
+# ─────────────────────────────────────────────────────────
+# Copy this file to:  ~/.nuke/dailies_viewer/config.yaml
+#
+# The script reads this config every time it runs, so edits
+# take effect immediately — no Nuke restart needed.
+# ─────────────────────────────────────────────────────────
+
+# Root of your shot tree on disk.
+# The script builds paths as:
+#   {shot_tree_root}/{SEQ}/{SHOT}/{version_subfolder}/
+#
+# Examples:
+#   Linux:   /mnt/projects/MY_SHOW/SHOT_TREE/vfx
+#   macOS:   /Volumes/MyServer/SHOT_TREE/vfx
+#   Windows: //server/share/SHOT_TREE/vfx
+shot_tree_root: "/path/to/your/SHOT_TREE/vfx"
+
+# Subfolder inside each shot directory that holds version files.
+version_subfolder: "_vfx"
+
+# Regex applied to each Read node's filename (without extension)
+# to extract the shot name. Group 1 must capture the full shot
+# name, including any optional trailing letter (e.g. SEQ_1140a).
+#
+# The default pattern matches filenames like:
+#   SEQ_1140a_comp_u0012_vfx.mov
+#   ABC_0200_comp_w0045_vfx.mov
+#
+# Adjust this to match your facility's naming convention.
+shot_regex: "^([A-Z]+_\\d+[a-z]?)_\\w+_[a-z]\\d+_vfx$"
+
+# Only match files with this extension.
+file_extension: ".mov"
+
+# ── Node-graph layout ────────────────────────────────────
+# Controls how the generated Read/Backdrop nodes are arranged.
+layout:
+  backdrop_width: 300
+  backdrop_height: 200
+  column_spacing: 350 # horizontal gap between shots
+  row_spacing: 300 # vertical gap between rows
+
+# ── Backdrop colors ──────────────────────────────────────
+# One color per row. Accepts #RRGGBB or #RRGGBBAA hex values.
+colors:
+  selected_versions: "#00A2FF" # blue  — your current selection
+  latest_versions: "#FFFC67" # yellow — newest version on disk
+  version_zeros: "#9200FF" # purple — version zero reference
